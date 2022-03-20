@@ -9,6 +9,6 @@ class InstaCloneApplicationTests {
 	
 	@Test
 	void contextLoads() {
-	}
 
+	}
 }
