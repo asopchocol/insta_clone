@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>Login Page</title>
@@ -7,11 +7,12 @@
 <body>
 <h1> Login Page </h1>
 <hr/> <form action="/login" method="POST"> <!-- 시큐리티에서 /login을 통해 인증처리를 할 예정 -->
-    <input type="text" name="username" placeholder="username" autofocus/>
+    <input type="text" name="email" placeholder="email" autofocus/>
     <br/>
-    <input type="password" name="password" placeholder="password"/>
+    <input type="password" name="passwd" placeholder="passwd"/>
     <button type="submit">Login</button>
 </form>
 <a href="/joinForm">회원 가입</a>
+<h2 th:text="${session.id}"></h2>
 </body>
 </html>

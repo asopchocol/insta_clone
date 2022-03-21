@@ -16,4 +16,16 @@ public class LoginService {
     @Autowired
     private final UserRepository userRepository;
 
+    public boolean login(User user) {
+        User findUser = userRepository.findByEmail(user.getEmail());
+
+        if (findUser == null) {
+            return false;
+        }
+        if (!findUser.getPasswd().equals(user.getPasswd())) {
+            return false;
+        }
+        return true;
+    }
+
 }
