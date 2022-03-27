@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 public class CookieUtil {
 
     public Cookie createCookie(String cookieName, String value) {
-        log.info("CookieUtil: createCookie 실행 {} {}", cookieName, value);
         Cookie token = new Cookie(cookieName, value);
         token.setHttpOnly(true);
         token.setMaxAge((int) JwtUtil.TOKEN_VALIDATION_SECOND);
