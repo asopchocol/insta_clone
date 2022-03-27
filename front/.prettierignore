@@ -1,0 +1,3 @@
+# 해당 부분은 설정이 다름.
+/app/javascript/stylesheets/tailwind.config.js
+/app/javascript/components/Style.js
