@@ -1,14 +1,17 @@
-package hero.insta_clone.service;
+package hero.insta_clone.service.authjwt;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Service
+@Slf4j
 public class CookieUtil {
 
     public Cookie createCookie(String cookieName, String value) {
+        log.info("CookieUtil: createCookie 실행 {} {}", cookieName, value);
         Cookie token = new Cookie(cookieName, value);
         token.setHttpOnly(true);
         token.setMaxAge((int) JwtUtil.TOKEN_VALIDATION_SECOND);

@@ -1,4 +1,4 @@
-package hero.insta_clone.service;
+package hero.insta_clone.service.authjwt;
 
 import hero.insta_clone.domain.SecurityUser;
 import hero.insta_clone.domain.User;

@@ -1,4 +1,4 @@
-package hero.insta_clone.service;
+package hero.insta_clone.service.authjwt;
 
 import hero.insta_clone.domain.User;
 import io.jsonwebtoken.Claims;
@@ -6,6 +6,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
+@Slf4j
 @Component
 public class JwtUtil {
 
@@ -53,10 +55,12 @@ public class JwtUtil {
     }
 
     public String generateToken(User user) {
+        log.info("generateToken 실행");
         return doGenerateToken(user.getEmail(), TOKEN_VALIDATION_SECOND);
     }
 
     public String generateRefreshToken(User user) {
+        log.info("generateRefreshToken 실행");
         return doGenerateToken(user.getEmail(), REFRESH_TOKEN_VALIDATION_SECOND);
     }
 
@@ -70,12 +74,14 @@ public class JwtUtil {
                 .setExpiration(new Date(System.currentTimeMillis() + expireTime))
                 .signWith(getSigningKey(SECRET_KEY), SignatureAlgorithm.HS256)
                 .compact();
-
+        log.info("jwt token 생성 알림 = {}", jwt);
         return jwt;
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
+        log.info("validateToken 실행");
         final String email = getEmail(token);
+        log.info("email = {}, token = {}, userDetails = {}", email, token, userDetails);
 
         return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
