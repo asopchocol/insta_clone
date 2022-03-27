@@ -1,4 +1,4 @@
-package hero.insta_clone.service;
+package hero.insta_clone.service.authjwt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;

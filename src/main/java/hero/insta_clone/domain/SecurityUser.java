@@ -9,6 +9,6 @@ public class SecurityUser extends User {
     private static final long serialVersionUid = 1L;
 
     public SecurityUser(User user) {
-        super(user.getEmail(),"{noop}"+ user.getPasswd());
+        super(user.getEmail(), user.getPasswd());
     }
 }

@@ -1,4 +1,4 @@
-package hero.insta_clone.service;
+package hero.insta_clone.service.authjwt;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;

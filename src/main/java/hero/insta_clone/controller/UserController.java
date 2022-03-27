@@ -4,9 +4,9 @@ import hero.insta_clone.domain.User;
 import hero.insta_clone.domain.request.RequestLoginUser;
 import hero.insta_clone.domain.response.Response;
 import hero.insta_clone.repository.UserRepository;
-import hero.insta_clone.service.AuthService;
-import hero.insta_clone.service.CookieUtil;
-import hero.insta_clone.service.JwtUtil;
+import hero.insta_clone.service.authjwt.AuthService;
+import hero.insta_clone.service.authjwt.CookieUtil;
+import hero.insta_clone.service.authjwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +46,7 @@ public class UserController {
     @PostMapping("login")
     public Response login(@RequestBody User loginUser, HttpServletRequest request, HttpServletResponse response) {
         try{
+            log.info("login 진입 실행");
             final User user = authService.loginUser(loginUser.getEmail(), loginUser.getPassword());
             final String token = jwtUtil.generateToken(user);
             final String refreshJwt = jwtUtil.generateRefreshToken(user);
@@ -53,6 +54,7 @@ public class UserController {
             Cookie refreshToken = cookieUtil.createCookie(JwtUtil.REFRESH_TOKEN_NAME, refreshJwt);
             response.addCookie(accessToken);
             response.addCookie(refreshToken);
+
             return new Response("success", "로그인에 성공했습니다.", token);
         } catch (Exception e) {
             return new Response("error", "로그인에 실패했습니다.", e.getMessage());
