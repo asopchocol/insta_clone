@@ -1,5 +1,6 @@
 package hero.insta_clone.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -25,7 +26,6 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
     private Long id;
 
     @Column(nullable = false, unique = true, length = 100, name ="email")
@@ -38,7 +38,8 @@ public class User implements UserDetails {
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)  //하나의 유저가 여러개의 프로필을 만들 수 있음.
+    @JsonIgnoreProperties({"user"})
     private List<Profile> profileList = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)

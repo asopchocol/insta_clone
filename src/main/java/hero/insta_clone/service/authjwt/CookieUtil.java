@@ -18,6 +18,14 @@ public class CookieUtil {
         return token;
     }
 
+    public Cookie deleteCookie(String cookieName, String value) {
+        Cookie token = new Cookie(cookieName, null);
+        token.setHttpOnly(false);
+        token.setMaxAge(0);
+        token.setPath("/");
+        return token;
+    }
+
     public Cookie getCookie(HttpServletRequest req, String cookieName) {
         final Cookie[] cookies = req.getCookies();
         if(cookies==null) return null;

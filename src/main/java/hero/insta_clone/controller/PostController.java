@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
@@ -29,10 +31,15 @@ public class PostController {
     @Autowired
     private CookieUtil cookieUtil;
 
-    @GetMapping("/post")
-    public String post(HttpServletRequest request, HttpServletResponse response) {
+    @GetMapping("{userId}/post")
+    public String post(@PathVariable String userId, HttpServletRequest request, HttpServletResponse response) {
 
-        return "ok";
+        return "profile 회면 제공예정입니다.";
     }
 
+    @PostMapping("post")
+    public String uploadPost() {
+
+        return "upload post";
+    }
 }

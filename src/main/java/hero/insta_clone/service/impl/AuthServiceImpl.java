@@ -47,4 +47,9 @@ public class AuthServiceImpl implements AuthService {
             throw new Exception("비밀번호가 틀립니다.");
         return user;
     }
+
+    @Override
+    public void logout(String accessToken, String refreshToken) {
+
+    }
 }

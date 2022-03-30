@@ -1,5 +1,7 @@
 package hero.insta_clone.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Builder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -14,10 +16,10 @@ import java.util.List;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
     private Long id;
 
-    private String content;
+    private String postImgUrl;
+    private String text;
 
     @CreatedDate
     @Column(updatable = false, nullable = false)
@@ -25,4 +27,45 @@ public class Post {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<PostFile> postFileList = new ArrayList<>();
+
+    @OrderBy("id")
+    @JsonIgnoreProperties({"post"}) //무한참조 막기위함.
+    @OneToMany(mappedBy = "post")
+    private List<Comment> commentList;
+
+    @JsonIgnoreProperties({"post"})
+    @OneToMany(mappedBy = "post")
+    private List<Likes> likesList;
+
+    @JsonIgnoreProperties({"profileList"})
+    @JoinColumn(name = "profile_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Profile profile;
+
+    @Transient
+    private long likesCount;
+
+    @Transient
+    private boolean likesState;
+
+    public void updateLikesCount(long likesCount) {
+        this.likesCount = likesCount;
+    }
+
+    public void updateLikesState(boolean likesState) {
+        this.likesState = likesState;
+    }
+
+    public void makePost(Long id) {
+        this.id = id;
+    }
+
+    @Builder
+    public Post(String postImgUrl, String text, Profile profile, long likesCount) {
+        this.postImgUrl = postImgUrl;
+        this.text = text;
+        this.profile = profile;
+        this.likesCount = likesCount;
+    }
+
 }

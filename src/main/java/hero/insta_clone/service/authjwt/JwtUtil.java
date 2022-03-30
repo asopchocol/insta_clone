@@ -23,7 +23,7 @@ public class JwtUtil {
      * JWT는 Header, Payload, Signature, 생성
      */
 
-    public final static long TOKEN_VALIDATION_SECOND = 1000L * 60 * 30;
+    public final static long TOKEN_VALIDATION_SECOND = 1000L * 60 * 10;
     public final static long REFRESH_TOKEN_VALIDATION_SECOND = 1000L * 60 * 24 * 2;
 
     final static public String ACCESS_TOKEN_NAME = "accessToken";
@@ -84,5 +84,11 @@ public class JwtUtil {
         log.info("email = {}, token = {}, userDetails = {}", email, token, userDetails);
 
         return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    public Long getRemainMilliSeconds(String token) {
+        Date expiration = extractAllClaims(token).getExpiration();
+        Date now = new Date();
+        return expiration.getTime() - now.getTime();
     }
 }
