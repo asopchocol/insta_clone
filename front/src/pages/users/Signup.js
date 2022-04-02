@@ -81,7 +81,6 @@ function SignupPage() {
                 <div className="mx-5 mb-2 mt-5">
                   <button
                     disabled={!isValid || isSubmitting}
-<<<<<<< Updated upstream
                     className="bg-sky-300 text-white w-full py-1"
                   >
                     로그인
@@ -94,13 +93,6 @@ function SignupPage() {
                 <div className="text-center text-xs font- thin mb-6 mt-5">
                   <a href="#">비밀번호를 잊으셨나요?</a>
                 </div>
-=======
-                    className="bg-sky-300 text-white w-full py-1 mb-4"
-                  >
-                    가입
-                  </button>
-                </div>
->>>>>>> Stashed changes
               </form>
             )}
           </Formik>
@@ -110,15 +102,9 @@ function SignupPage() {
       <article className="border border-gray-300">
         <div className="w-96 m-auto bg-white">
           <div className="text-center font-medium mb-5 mt-5 ">
-<<<<<<< Updated upstream
             계정이 없으신가요?
             <a className="text-blue-500" href="/signup">
               가입하기
-=======
-            계정이 있으신가요?
-            <a className="text-blue-500" href="/login">
-              로그인
->>>>>>> Stashed changes
             </a>
           </div>
         </div>
