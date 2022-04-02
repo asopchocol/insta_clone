@@ -2,7 +2,7 @@ import { Formik } from "formik";
 import React, { useState } from "react";
 import * as Yup from "yup";
 
-function SignupPage() {
+const SignupPage = () => {
   const [passwordType, setPasswordType] = useState("password");
   const loginSchema = Yup.object().shape({
     email: Yup.string().required("필수 입력사항입니다."),
@@ -10,6 +10,7 @@ function SignupPage() {
     id: Yup.string().required("필수 입력사항입니다."),
     password: Yup.string().required("필수 입력사항입니다."),
   });
+
   return (
     <main className="h-screen flex justify-center items-center flex-col space-y-3">
       <article className="border border-gray-300  ">
@@ -111,6 +112,6 @@ function SignupPage() {
       </article>
     </main>
   );
-}
+};
 
 export default SignupPage;
