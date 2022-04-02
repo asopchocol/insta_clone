@@ -11,7 +11,11 @@ function LoginPage() {
 
   return (
     <main className="h-screen flex justify-center items-center flex-col space-y-3">
+<<<<<<< Updated upstream
       <article className="border border-gray-300  ">
+=======
+      <article className="border border-gray-300">
+>>>>>>> Stashed changes
         <div className="w-96 m-auto bg-white">
           <h1 className="text-center my-3">Instagram</h1>
           <Formik
@@ -51,12 +55,15 @@ function LoginPage() {
                     disabled={!isValid || isSubmitting}
                     className="bg-sky-300 text-white w-full py-1"
                   >
-                    로그인
+                    <a href="/">로그인</a>
                   </button>
                 </div>
+<<<<<<< Updated upstream
                 <div className="text-center font-normal text-sm  mb-2 mt-5">
                   또는
                 </div>
+=======
+>>>>>>> Stashed changes
                 <div className="text-center font-medium mb-2 mt-5 ">
                   <a href="#">Facebook으로 로그인</a>
                 </div>
