@@ -1,5 +1,6 @@
 package hero.insta_clone.service.authjwt;
 
+import hero.insta_clone.domain.Profile;
 import hero.insta_clone.domain.User;
 
 public interface AuthService {

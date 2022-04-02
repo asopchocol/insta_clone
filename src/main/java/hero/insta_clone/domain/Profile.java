@@ -5,6 +5,7 @@ import hero.insta_clone.repository.ProfileRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
@@ -27,8 +29,10 @@ public class Profile {
     private Long id;
 
     private String name;
-    @Column(unique = true, length = 15)
+
+    @Column(nullable = false, unique = true, length = 20, name ="nickname")
     private String nickname;
+
     private String description;
     private String profileImgUrl;
 

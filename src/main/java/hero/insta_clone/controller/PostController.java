@@ -1,5 +1,6 @@
 package hero.insta_clone.controller;
 
+import hero.insta_clone.domain.User;
 import hero.insta_clone.repository.UserRepository;
 import hero.insta_clone.security.jwt.JwtRequestFilter;
 import hero.insta_clone.service.authjwt.AuthService;
@@ -30,12 +31,6 @@ public class PostController {
     private JwtUtil jwtUtil;
     @Autowired
     private CookieUtil cookieUtil;
-
-    @GetMapping("{userId}/post")
-    public String post(@PathVariable String userId, HttpServletRequest request, HttpServletResponse response) {
-
-        return "profile 회면 제공예정입니다.";
-    }
 
     @PostMapping("post")
     public String uploadPost() {

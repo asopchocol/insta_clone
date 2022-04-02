@@ -1,8 +1,8 @@
 package hero.insta_clone.controller;
 
 import hero.insta_clone.domain.User;
-import hero.insta_clone.domain.request.RequestLoginUser;
 import hero.insta_clone.domain.response.Response;
+import hero.insta_clone.repository.ProfileRepository;
 import hero.insta_clone.repository.UserRepository;
 import hero.insta_clone.service.authjwt.AuthService;
 import hero.insta_clone.service.authjwt.CookieUtil;
@@ -17,11 +17,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/user")
+@RequestMapping("users")
 public class UserController {
 
     @Autowired
@@ -46,7 +47,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public Response login(@RequestBody User loginUser, HttpServletRequest request, HttpServletResponse response) {
         try{
             log.info("login 진입 실행");
@@ -65,7 +66,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("logout")
+    @GetMapping("/logout")
     public Response logout(HttpServletRequest request, HttpServletResponse response) {
         try {
             log.info("logout 실행");
@@ -92,8 +93,19 @@ public class UserController {
         }
     }
 
-    @GetMapping("/users")
+    @GetMapping("/")
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    @DeleteMapping("/user/{userId}")
+    public Response deleteId(@PathVariable long userId) {
+        if (userRepository.findById(userId) != null) {
+            userRepository.deleteById(userId);
+            return new Response("success", "유저삭제에 성공했습니다.", null);
+        }
+        else {
+            return new Response("error", "유저삭제에 실패했습니다.", null);
+        }
     }
 }

@@ -25,6 +25,10 @@ public class UserService {
         return user.getId();
     }
 
+    public void delete(User user) {
+        userRepository.deleteById(user.getId());
+    }
+
     /*전체 회원 조회*/
     public List<User> findMembers() {
         return userRepository.findAll();

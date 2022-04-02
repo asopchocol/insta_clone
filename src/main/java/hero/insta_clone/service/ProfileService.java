@@ -1,6 +1,7 @@
 package hero.insta_clone.service;
 
 import hero.insta_clone.domain.Profile;
+import hero.insta_clone.domain.User;
 import hero.insta_clone.dto.profile.ProfileUpdateDto;
 import hero.insta_clone.repository.ProfileRepository;
 import hero.insta_clone.repository.UserRepository;
@@ -19,6 +20,11 @@ public class ProfileService {
     public void update(ProfileUpdateDto profileUpdateDto) {
         Profile profile = profileRepository.findByNickname(profileUpdateDto.getNickname());
         profile.update(profileUpdateDto.getName(), profileUpdateDto.getDescription());
+    }
+
+    public void signUpProfile(Profile profile, User user) {
+        profile.setUser(user);
+        profileRepository.save(profile);
     }
 
 
