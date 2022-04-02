@@ -7,6 +7,7 @@ import hero.insta_clone.repository.UserRepository;
 import hero.insta_clone.service.authjwt.AuthService;
 import hero.insta_clone.service.authjwt.CookieUtil;
 import hero.insta_clone.service.authjwt.JwtUtil;
+import hero.insta_clone.service.authjwt.RedisUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class UserController {
     private JwtUtil jwtUtil;
     @Autowired
     private CookieUtil cookieUtil;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @PostMapping("/signup")
     public Response signUpUser(@RequestBody User user) {
@@ -52,12 +55,40 @@ public class UserController {
             final String refreshJwt = jwtUtil.generateRefreshToken(user);
             Cookie accessToken = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN_NAME, token);
             Cookie refreshToken = cookieUtil.createCookie(JwtUtil.REFRESH_TOKEN_NAME, refreshJwt);
+            redisUtil.setDataExpire(refreshJwt, user.getEmail(), JwtUtil.REFRESH_TOKEN_VALIDATION_SECOND);
             response.addCookie(accessToken);
             response.addCookie(refreshToken);
 
             return new Response("success", "로그인에 성공했습니다.", token);
         } catch (Exception e) {
             return new Response("error", "로그인에 실패했습니다.", e.getMessage());
+        }
+    }
+
+    @GetMapping("logout")
+    public Response logout(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            log.info("logout 실행");
+            Cookie accessToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
+            Cookie refreshToken = cookieUtil.getCookie(request, JwtUtil.REFRESH_TOKEN_NAME);
+
+            String accessTokenValue = accessToken.getValue();
+            String refreshTokenValue = refreshToken.getValue();
+
+            String email = jwtUtil.getEmail(accessTokenValue);
+
+            redisUtil.setDataExpire(accessTokenValue, email, jwtUtil.getRemainMilliSeconds(accessTokenValue));
+            redisUtil.deleteData(refreshTokenValue);
+
+            Cookie deleteAccessToken = cookieUtil.deleteCookie(JwtUtil.ACCESS_TOKEN_NAME, accessTokenValue);
+            Cookie deleteRefreshToken = cookieUtil.deleteCookie(JwtUtil.REFRESH_TOKEN_NAME, refreshTokenValue);
+
+            response.addCookie(deleteAccessToken);
+            response.addCookie(deleteRefreshToken);
+
+            return new Response("success", "로그아웃에 성공했습니다.", accessTokenValue);
+        } catch (Exception e) {
+            return new Response("error", "로그아웃에 실패했습니다.", e.getMessage());
         }
     }
 
