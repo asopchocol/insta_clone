@@ -22,7 +22,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("users")
+@RequestMapping("")
 public class UserController {
 
     @Autowired
@@ -93,12 +93,12 @@ public class UserController {
         }
     }
 
-    @GetMapping("/")
+    @GetMapping("/users")
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    @DeleteMapping("/user/{userId}")
+    @DeleteMapping("/users/{userId}")
     public Response deleteId(@PathVariable long userId) {
         if (userRepository.findById(userId) != null) {
             userRepository.deleteById(userId);
