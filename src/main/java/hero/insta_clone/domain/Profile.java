@@ -33,6 +33,8 @@ public class Profile {
     @Column(nullable = false, unique = true, length = 20, name ="nickname")
     private String nickname;
 
+    private Boolean is_main = false;
+
     private String description;
     private String profileImgUrl;
 
@@ -40,7 +42,7 @@ public class Profile {
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"profileList"})
     @JoinColumn(name = "user_id")
     private User user;

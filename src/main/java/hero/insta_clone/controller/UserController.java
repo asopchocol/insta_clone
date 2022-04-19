@@ -22,7 +22,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("")
+@RequestMapping
 public class UserController {
 
     @Autowired
@@ -63,11 +63,12 @@ public class UserController {
             return new Response("success", "로그인에 성공했습니다.", token);
         } catch (Exception e) {
             return new Response("error", "로그인에 실패했습니다.", e.getMessage());
+
         }
     }
 
-    @GetMapping("/logout")
-    public Response logout(HttpServletRequest request, HttpServletResponse response) {
+    @DeleteMapping("/exit")
+    public Response logout(HttpServletRequest request, HttpServletResponse response) throws Exception{
         try {
             log.info("logout 실행");
             Cookie accessToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);

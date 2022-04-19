@@ -84,7 +84,7 @@ public class LoginController {
 //    /**
 //     * 메인페이지 로그아웃
 //     */
-//    @RequestMapping(value="logout", method= RequestMethod.GET)
+//    @RequestMapping(value="logout2", method= RequestMethod.GET)
 //    public String logoutMainGET(HttpServletRequest request) throws Exception {
 //        log.info("LogoutMainGet메서드 진입");
 //        HttpSession session = request.getSession();
