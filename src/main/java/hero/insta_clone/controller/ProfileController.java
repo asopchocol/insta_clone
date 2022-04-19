@@ -77,7 +77,7 @@ public class ProfileController {
 
         Iterator<Profile> iter = findProfileList.iterator();
 
-        while (iter.hasNext()) {
+        while (iter.hasNext()) {        //메인프로필 작업
             iter.next().setIs_main(false);
         }
 
