@@ -18,7 +18,6 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String postImgUrl;
     private String text;
 
     @CreatedDate
@@ -42,6 +41,14 @@ public class Post {
     @ManyToOne(fetch = FetchType.EAGER)
     private Profile profile;
 
+    @OneToMany
+    @JoinTable(name = "PostTag",
+                joinColumns = @JoinColumn(name="post_id"),
+                inverseJoinColumns = @JoinColumn(name="tag_id")
+    )
+    private List<Tag> tag = new ArrayList<Tag>();
+
+
     @Transient
     private long likesCount;
 
@@ -61,8 +68,7 @@ public class Post {
     }
 
     @Builder
-    public Post(String postImgUrl, String text, Profile profile, long likesCount) {
-        this.postImgUrl = postImgUrl;
+    public Post(String text, Profile profile, long likesCount) {
         this.text = text;
         this.profile = profile;
         this.likesCount = likesCount;
