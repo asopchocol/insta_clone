@@ -49,10 +49,17 @@ const SignupPage = () => {
           <h1 className="text-center my-3">Instagram</h1>
           <h1 className="text-center text-gray-400 font-semibold">
             친구들의 사진과 동영상을 보려면
-          </h1>
-          <h1 className="text-center text-gray-400 font-semibold">
+            <br />
             가입하세요.
           </h1>
+
+          <div className="m-5">
+            <button className="bg-blue-500 text-white w-full p-2">
+              <a href="/">Facebook으로 로그인</a>
+            </button>
+          </div>
+
+          <div className="text-center font-normal text-sm  m-5">또는</div>
 
           <Formik
             initialValues={{ email: "", name: "", nickname: "", passwd: "" }}
@@ -110,18 +117,29 @@ const SignupPage = () => {
                     placeholder="비밀번호"
                   />
                 </div>
-                <div className="mx-5 mb-2 mt-5">
+                <div className="m-5 mb-10">
                   <button
                     type="submit"
                     disabled={!isValid || isSubmitting}
                     className="bg-sky-300 text-white w-full py-1"
                   >
-                    회원가입
+                    가입
                   </button>
                 </div>
               </form>
             )}
           </Formik>
+        </div>
+      </article>
+
+      <article className="border border-gray-300 pb-4 pt-4">
+        <div className="w-96 m-auto bg-white">
+          <div className="text-center font-medium mb-5 mt-5 ">
+            계정이 있으신가요?
+            <a className="text-blue-500 ml-1" href="/login">
+              로그인
+            </a>
+          </div>
         </div>
       </article>
     </main>
