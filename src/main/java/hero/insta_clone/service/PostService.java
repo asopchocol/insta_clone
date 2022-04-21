@@ -25,12 +25,14 @@ import java.util.UUID;
 public class PostService {
     private final PostRepository postRepository;
     private final PostFileRepository postFileRepository;
+    private final ProfileRepository profileRepository;
+    private final UserRepository userRepository;
 
     @Value("${post.path}")
     private String uploadUrl;
 
     @Transactional
-    public void save(PostUploadDto postUploadDto, MultipartFile multipartFile) {
+    public void save(PostUploadDto postUploadDto, MultipartFile multipartFile, SecurityUser securityUser) {
         UUID uuid = UUID.randomUUID();
         String originalFilename = multipartFile.getOriginalFilename();
         String extension = StringUtils.getFilenameExtension(originalFilename); //확장자 추출
@@ -49,8 +51,18 @@ public class PostService {
 
         String mypath = uploadUrl + imgFileName;
 
+        String email = securityUser.getEmail();
+        User findUser = userRepository.findByEmail(email);
+        Long id = findUser.getId();
+
+        //Ismain프로필을 찾을 때 다른 프로필도 설정되어있을 수 있다. 그래서 검증작업 필요 -> loginUser의 프로필이 맞는지 !
+        Profile profile = profileRepository.findProfileByUser_IdAndIsmainNative(id, true);
+
+        log.info("Nickname : {} Ismain : {}",profile.getNickname(), profile.getIsmain());
+
         Post savedPost = postRepository.save(Post.builder()
                 .text(postUploadDto.getText())
+                .profile(profile)
                 .likesCount(0)
                 .build());
 
@@ -61,6 +73,4 @@ public class PostService {
         postFile.setPost(savedPost);
         postFileRepository.save(postFile);
     }
-
-
 }

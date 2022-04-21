@@ -1,5 +1,6 @@
 package hero.insta_clone.controller;
 
+import hero.insta_clone.domain.SecurityUser;
 import hero.insta_clone.domain.User;
 import hero.insta_clone.dto.post.PostUploadDto;
 import hero.insta_clone.handler.ex.CustomValidationException;
@@ -44,12 +45,12 @@ public class PostController {
     }
 
     @PostMapping("/post")
-    public String uploadPost(PostUploadDto postUploadDto, @RequestParam MultipartFile file) {
+    public String uploadPost(PostUploadDto postUploadDto, @RequestParam MultipartFile file, @AuthenticationPrincipal SecurityUser securityUser) {
         log.info("Request contains, File: " + file.getOriginalFilename());
         if (file.isEmpty()) {
             throw new CustomValidationException("이미지가 첨부되지 않았습니다.");
         }
-        postService.save(postUploadDto, file);
+        postService.save(postUploadDto, file, securityUser);
 
         return "Success";
     }

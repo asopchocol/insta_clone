@@ -33,7 +33,7 @@ public class Profile {
     @Column(nullable = false, unique = true, length = 20, name ="nickname")
     private String nickname;
 
-    private Boolean is_main = false;
+    private Boolean ismain = false;
 
     private String description;
     private String profileImgUrl;
