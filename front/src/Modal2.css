@@ -16,8 +16,8 @@
 .modal > section {
   flex: auto;
   width: 90%;
-  max-width: 900px;
-  max-height: 900px;
+  max-width: 450px;
+  max-height: 1200px;
   /* max-height: 900px;  */
   margin: 0 auto;
   border-radius: 0.3rem;
@@ -64,7 +64,7 @@
   border-radius: 5px;
   font-size: 13px;
 }
-.modal.openModal {
+.modal.commentPopModal {
   display: flex;
   align-items: center;
   /* 팝업이 열릴때 스르륵 열리는 효과 */

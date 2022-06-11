@@ -9,7 +9,7 @@ import LikeBar from "./Likebar";
 
 const CommentPop = (props) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, header } = props;
+  const { open, close, header ,image} = props;
 
   const imageDatas = [
     "https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi.pinimg.com%2F736x%2Fdf%2Fcb%2Fd0%2Fdfcbd0982731d27df1ee3d6d3f584771.jpg&type=sc960_832",
@@ -22,7 +22,7 @@ const CommentPop = (props) => {
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
-    <div className={open ? "openModal modal" : "modal"}>
+    <div className={`modal ${open ? "commentPopModal" : ''}`}>
       {open ? (
         <section>
           <header>
@@ -57,12 +57,13 @@ const CommentPop = (props) => {
               <LikeBar></LikeBar>
             </div>
 
-            <div className="flex-col border-t border-gray-400">
+            <div className="flex-col border-t border-gray-400 w-auto">
               <CommentBar />
             </div>
           </section>
         </section>
       ) : null}
+      
     </div>
   );
 };

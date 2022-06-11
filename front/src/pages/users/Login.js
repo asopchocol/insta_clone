@@ -11,7 +11,7 @@ const LoginPage = () => {
 
   return (
     <main className="h-screen flex justify-center items-center flex-col space-y-3">
-      <article className="border border-gray-300  ">
+      <article className="border border-gray-300 ">
         <div className="w-96 m-auto bg-white">
           <h1 className="text-center my-3">Instagram</h1>
           <Formik
